@@ -1,0 +1,9 @@
+{
+    "env" : {
+        "MYSQL_USER" : "root",
+        "MYSQL_PASSWORD" : "123456",
+        "MYSQL_DATABASE" : "mariadb",
+        "MYSQL_HOST" : "10.10.0.10",
+        "MYSQL_PORT" : 3306
+    }
+}
