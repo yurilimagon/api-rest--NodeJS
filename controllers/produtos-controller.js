@@ -18,7 +18,7 @@ exports.getProdutos = (req,res,next) => {
                             request: {
                                 tipo: 'GET',
                                 descricao: 'Retorna um produto específico',
-                                url: process.env.URL_API + '/produtos/' + prod.id_produto
+                                url: process.env.URL_API + '/produtos/' + prod.idprodutos
                             }
                         }
                     })
