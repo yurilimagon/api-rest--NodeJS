@@ -1,9 +1,9 @@
 {
     "env" : {
-        "MYSQL_USER" : "root",
-        "MYSQL_PASSWORD" : "123456",
-        "MYSQL_DATABASE" : "mariadb",
-        "MYSQL_HOST" : "10.10.0.10",
+        "MYSQL_USER" : "bb0374e4be712f",
+        "MYSQL_PASSWORD" : "40bcc921",
+        "MYSQL_DATABASE" : "heroku_affc369b9a5695d",
+        "MYSQL_HOST" : "us-cdbr-east-02.cleardb.com",
         "MYSQL_PORT" : 3306,
         "JWT_KEY" : "segredo" 
     }
