@@ -1,29 +1,4 @@
 const mysql = require('../mysql').pool;
-const multer = require('multer');
-const storage = multer.diskStorage({
-    destination: function(re,file,cb){
-        cb(null, './uploads/');
-    },
-    filename: function(re,file,cb){
-        cb(null, new Date().toISOString() + file.originalname);
-    },
-});
-
-const fileFilter = (req,file,cb) => {
-    if (file.mimetipe === 'image/jpeg' || file.mimetipe === 'image/png') {
-        cb(null, true);
-    } else{
-        cb(null, false);
-    }
-}
-
-const upload = multer({ 
-    storage: storage,
-    limits: {
-        fileSize: (1024 * 1024) * 5
-    },
-    fileFilte: fileFilter
-});
 
 exports.getProdutos = (req,res,next) => {
     mysql.getConnection((error, conn) => {
@@ -54,7 +29,7 @@ exports.getProdutos = (req,res,next) => {
     });
 }
 
-exports.postProduto = upload.single('produto_imagem'),(req,res,next) => {
+exports.postProduto = (req,res,next) => {
     console.log(req.usuario);
     mysql.getConnection((error, conn) => {
         if(error){ return res.status(500).send({ error: error }) }
