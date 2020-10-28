@@ -3,19 +3,19 @@ const mysql = require('../mysql');
 // MOSTRA TODOS OS PRODUTOS(GET)
 try {
     exports.getProdutos = async(req,res,next) => {
-        const result = await mysql.execute("SELECT * FROM produtos;")
+        const result = await mysql.execute("SELECT * FROM products;")
         const response = {
             quantidade: result.length,
             produtos: result.map(prod => {
                 return {
-                    id_produto: prod.idprodutos,
-                    nome: prod.nome,
-                    preco: prod.preco,
-                    imagem_produto: prod.imagem_produto,
+                    productId: prod.productId,
+                    name: prod.name,
+                    price: prod.price,
+                    productImage: prod.productImage,
                     request: {
                         tipo: 'GET',
                         descricao: 'Retorna um produto específico',
-                        url: process.env.URL_API + '/produtos/' + prod.idprodutos
+                        url: process.env.URL_API + '/produtos/' + prod.productId
                     }
                 }
             })
@@ -29,15 +29,15 @@ try {
 // INSERE UM NOVO PRODUTO(POST)
 exports.postProduto = (req,res,next) => {
     try {
-        const query = "INSERT INTO produtos (nome, preco, imagem_produto) VALUES (?,?,?)";
+        const query = "INSERT INTO products (name, price, productImage) VALUES (?,?,?)";
         const result =  mysql.execute(query, [req.body.nome, req.body.preco, req.file.path]);
         const response = {
             mensagem: 'Produto inserido com sucesso.',
             produtoCriado: {
-                id_produto: result.idprodutos,
-                nome: req.body.nome,
-                preco: req.body.preco,
-                imagem_produto: req.file.path,
+                productId: result.productId,
+                name: req.body.name,
+                price: req.body.price,
+                productImage: req.file.path,
                 request: {
                     tipo: 'GET',
                     descricao: 'Retorna todos os produtos',
@@ -54,7 +54,7 @@ exports.postProduto = (req,res,next) => {
 // MOSTRA UM PRODUTO ESPECÍFICO(GET)
 exports.getUmProduto = async (req,res,next) => {
     try {
-        const query = "SELECT * FROM produtos WHERE idprodutos = ?;";
+        const query = "SELECT * FROM products WHERE idprodutos = ?;";
         const result = await mysql.execute(query, [req.params.id_produto]);
         if(result.length == 0){
             return res.status(404).send({
@@ -83,7 +83,7 @@ exports.getUmProduto = async (req,res,next) => {
 // ATUALIZA UM PRODUTO(PATCH)
 exports.updadeProduto = async (req,res,next) => {
     try {
-        const query = `UPDATE produtos
+        const query = `UPDATE products
                        SET nome = ?, preco = ?
                        WHERE idprodutos = ?`;
         await mysql.execute(query, [
@@ -113,7 +113,7 @@ exports.updadeProduto = async (req,res,next) => {
 // DEÇETA UM PRODUTO
 exports.deleteProduto = async (req,res,next) => {
     try {
-        const query = "DELETE FROM produtos WHERE idprodutos = ?";
+        const query = "DELETE FROM products WHERE idprodutos = ?";
         await mysql.execute(query, [req.body.id_produto]);
         const response = {
             mensagem: 'Produto removido com sucesso.',
